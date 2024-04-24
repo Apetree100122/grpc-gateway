@@ -37,33 +37,20 @@ on:
   # https://github.com/actions/starter-workflows/blob/main/deployments/openshift.yml
   # However, if you want to run this workflow as a standalone workflow, please
   # uncomment the 'push' trigger below and configure it based on your requirements.
-  # workflow_call: secrets:
-CRDA_KEY:
-   required: false
-         SNYK_TOKEN:
-            required: false
- workflow_dispatch:
-     # push:
-       #   branches: [ "master" ]
+  # workflow_call: secrets workflow_dispatch:
+     # pushbranches: [ "master" ]
   # pull_request_target is used to securely share secret to the PR's workflow run.
   # For more info visit: https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request_target
   pull_request_target:
-    branches: [ "master" ]
-    types: [ assigned, opened, synchronize, reopened, labeled, edited ]
-permissions:
-  contents: read
-jobs:
-  crda-scan:
-    permissions:
-      contents: read          
-      # for actions/checkout to fetch code
-      security-events:   
-      # for redhat-actions/crda to upload SARIF results
-    name: Scan project vulnerabilities with CRDA
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v2
+branches: [ "master" ]      
+type:  assigned,opened
+# contents: "read"          
+# for actions/checkout to fetch code 
+# for redhat-actions
+Name: Scan project vulnerabilities with CRDA
+runs-on: ubuntu-20.04
+          - Check out repository
+      - actions/checkout@v2
       # ++++++++++++++++++++++++++++++++++++++
       # Required: Instructions to setup project
       #  Setup Go, Java, Node.js or Python 
@@ -80,28 +67,5 @@ jobs:
       #      with:
       #        node-version: '20'
       # https://github.com/redhat-actions/openshift-tools-installer/blob/main/README.md
-      - name: Install CRDA CLI
-        uses: redhat-actions/openshift-tools-installer@v1
-        with:
-          source: github
-          github_pat:
-          # Choose the desired version of the CRDA CLI
-          crda: "latest"
-      ##########################################
-      ############################################
-      # https://github.com/redhat-actions/crda/blob/main/README.md## 
-      #By default, CRDA will detect the manifest file and install the required dependencies
-      # using the standard command for the project type#
-      # If your project doesn't aligns with the defaults 
-      # mentioned in this action, you will     
-      # need to set few inputs that are described here:
-      # https://github.com/redhat-actions/crda/blob/main/README.md#3-installing-dependencies
-      # Visit https://github.com/redhat-actions/crda/#4-set-up-authentication to understand
-      # process to get a SNYK_TOKEN or a CRDA_KEY
-      - name: CRDA Scan
-        id: scan
-        uses: redhat-actions/crda@v1
-        with:
-          crda_key: ${{ secrets.CRDA_KEY }}        
-          # Either use crda_key or snyk_token # snyk_token: ${{ secrets.SNYK_TOKEN }}
-          # upload_artifact: false   
+      - name: Install CLI
+        uses: redhat-actions/openshift-tools-installer-latest"
