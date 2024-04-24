@@ -13,3 +13,25 @@ updates:
     directory: "/"
     schedule: 
       interval: daily
+    extends":
+["config:base",
+    "helpers:pin GitHub ActionDigests"],
+    "baseBranches":
+    ["main"],"post 
+    Update Options": 
+    ["gomodTidy"],
+    "packageRules": 
+    ["updateTypes":
+    [ "minor","major", 
+    "patch",
+    "security",
+    "pin","digest"],"automerge": false
+    "baseBranchList": ["main"],
+"packageNames":  ["github.com/golang/protobuf",
+"google.golang.org/protobuf"],"groupName": "golang/protobuf"},{"packagePatterns":
+            ["jekyll.*","github-pages"],"matchManagers": 
+            [ "github-actions"],"matchPackageNames": 
+            ["slsa-framework/slsa-github-generator"]"pinDigests": true
+        }
+    ]
+}
