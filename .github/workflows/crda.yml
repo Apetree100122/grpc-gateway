@@ -28,8 +28,7 @@
 #   Commit and push the workflow file to your default branch to trigger a workflow run.
 # 👋 Visit our GitHub organization at 
 #    https://github.com/redhat
-#   -actions/ to see our actions and provide feedback.
-name: CRDA Scan
+#  name: CRDA Scan
 # Controls when the workflow will run
 on:
   # TODO: Customize trigger events based on your DevSecOps processes
@@ -41,31 +40,3 @@ on:
      # pushbranches: [ "master" ]
   # pull_request_target is used to securely share secret to the PR's workflow run.
   # For more info visit: https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request_target
-  pull_request_target:
-branches: [ "master" ]      
-type:  assigned,opened
-# contents: "read"          
-# for actions/checkout to fetch code 
-# for redhat-actions
-Name: Scan project vulnerabilities with CRDA
-runs-on: ubuntu-20.04
-          - Check out repository
-      - actions/checkout@v2
-      # ++++++++++++++++++++++++++++++++++++++
-      # Required: Instructions to setup project
-      #  Setup Go, Java, Node.js or Python 
-      #  depending on your project type
-      #  Setup Actions are listed below,
-      #  choose one from them:
-      #    - Go: https://github.com/actions/setup-go
-      #    - Java: https://github.com/actions/setup-java
-      #    - Node.js: https://github.com/actions/setup-node
-      #    - Python: https://github.com/actions/setup-python
-      #     Example:
-      #    - name: Setup Node
-      #      uses: actions/setup-node@v2
-      #      with:
-      #        node-version: '20'
-      # https://github.com/redhat-actions/openshift-tools-installer/blob/main/README.md
-      - name: Install CLI
-        uses: redhat-actions/openshift-tools-installer-latest"
