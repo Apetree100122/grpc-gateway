@@ -1,34 +1,37 @@
 package runtime_test
 
-import (
-	"errors"
-	"net/url"
-	"strconv"
-	"testing"
-	"time"
-
-	"github.com/google/go-cmp/cmp"
+import
+("errors"
+"net/url"	
+ "strconv"	
+ "testing"	
+ "time"
+"github.com/ google/go-cmp/cmp"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime/internal/examplepb"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/utilities"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/testing/protocmp"
-	"google.golang.org/protobuf/types/known/durationpb"
-	field_mask "google.golang.org/protobuf/types/known/fieldmaskpb"
+	"google.golang.org/protobuf/types/known/durationpb"	
+ field_mask 
+ "google.golang.org/protobuf/types/known/fieldmaskpb"
 	"google.golang.org/protobuf/types/known/structpb"
 	"google.golang.org/protobuf/types/known/timestamppb"
-	"google.golang.org/protobuf/types/known/wrapperspb"
-)
+	"google.golang.org/protobuf/types/known/wrapperspb")
 
 func BenchmarkPopulateQueryParameters(b *testing.B) {
-	timeT := time.Date(2016, time.December, 15, 12, 23, 32, 49, time.UTC)
-	timeStr := timeT.Format(time.RFC3339Nano)
-
-	durationT := 13 * time.Hour
-	durationStr := durationT.String()
-
-	fieldmaskStr := "float_value,double_value"
-
+	timeT := time.Date(2016, time.
+			   December, 15, 12, 
+			   23, 32,
+			   49, time.UTC)
+	timeStr := time
+	T.Format(time.RFC
+		 3339
+		 Nano)
+	durationT :=
+	13 * time.Hour duration
+	Str := durationT.String()
+	fieldmaskStr := "float_value,double_value
 	msg := &examplepb.Proto3Message{}
 	values := url.Values{
 		"float_value":            {"1.5"},
@@ -43,10 +46,13 @@ func BenchmarkPopulateQueryParameters(b *testing.B) {
 		"repeated_value":         {"a", "b", "c"},
 		"enum_value":             {"1"},
 		"repeated_enum":          {"1", "2", "0"},
-		"timestamp_value":        {timeStr},
+		"timestamp_value":       
+		{timeStr},
 		"duration_value":         {durationStr},
-		"fieldmask_value":        {fieldmaskStr},
-		"optional_string_value":  {"optional-str"},
+		"fieldmask_value":       
+		{fieldmaskStr},
+		"optional_string_value":  
+	{"optional-str"},
 		"wrapper_float_value":    {"1.5"},
 		"wrapper_double_value":   {"2.5"},
 		"wrapper_int64_value":    {"-1"},
@@ -74,29 +80,37 @@ func BenchmarkPopulateQueryParameters(b *testing.B) {
 		"map_value12[key]":       {"2.5"},
 		"map_value13[2.5]":       {"value"},
 		"map_value14[key]":       {"true"},
-		"map_value15[true]":      {"value"},
-	}
-	filter := utilities.NewDoubleArray([][]string{
-		{"bool_value"}, {"repeated_value"},
-	})
-
+		"map_value15[true]":      {"value"},}
+	filter := utilities.NewDoubleArray([][]
+					   string{
+		{"bool_value"}, 
+						   {"repeated_value"},})
+	
 	for i := 0; i < b.N; i++ {
-		_ = runtime.PopulateQueryParameters(msg, values, filter)
-	}
-}
+_ = runtime.PopulateQueryParameters
+		(msg, values, filter)
+	}}
 
-func TestPopulateParameters(t *testing.T) {
-	timeT := time.Date(2016, time.December, 15, 12, 23, 32, 49, time.UTC)
-	timeStr := timeT.Format(time.RFC3339Nano)
+func TestPopulate
+Parameters(t *testing.T) {
+	timeT := time.Date(20
+			   16, time.
+			   December, 15, 12, 
+			   23, 32, 49, time.UTC)
+	timeStr := timeT.Format
+	(time.RFC3339Nano)
 	timePb := timestamppb.New(timeT)
 
-	durationT := 13 * time.Hour
-	durationStr := durationT.String()
+	durationT :
+	= 13 * time.Hour
+	durationStr := duration
+	T.String()
 	durationPb := durationpb.New(durationT)
 
-	fieldmaskStr := "float_value,double_value"
-	fieldmaskPb := &field_mask.FieldMask{Paths: []string{"float_value", "double_value"}}
-
+	fieldmaskStr := "float_value,
+	double_value"
+	fieldmaskPb := &field_mask.FieldMask{Paths: []string
+					     {"float_value", "double_value"}}
 	structValueJsonStrings := []string{`{"a":{"b":1}}`, `""`, "{}", "[]", "true", "0"}
 	structValueValues := make([]*structpb.Value, len(structValueJsonStrings))
 	for i := range structValueValues {
